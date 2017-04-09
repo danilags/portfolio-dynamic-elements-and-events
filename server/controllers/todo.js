@@ -43,9 +43,39 @@ let deleteTodo = function(req, res) {
   })
 }
 
+let completeTodo = function(req, res) {
+  db.findByIdAndUpdate(req.params.id, {
+    $set : {
+      status : true
+    }
+  }, function(err, data) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(data)
+    }
+  })
+}
+
+let uncompleteTodo = function(req, res) {
+  db.findByIdAndUpdate(req.params.id, {
+    $set : {
+      status : false
+    }
+  }, function(err, data) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(data)
+    }
+  })
+}
+
 module.exports = {
   createTodo,
   getAll,
   editTodo,
-  deleteTodo
+  deleteTodo,
+  completeTodo,
+  uncompleteTodo
 }
